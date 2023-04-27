@@ -25,7 +25,7 @@ class HomeController extends AbstractController
         // et j'ai appelé la méthode findAll()
         $products = $entityManager->getRepository(Articles::class)->findAll();
 
-        dd($products);
+        
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
