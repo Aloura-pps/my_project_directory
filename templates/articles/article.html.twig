@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block meta_description %}Retrouver notre article sur le sujet suivant: {{ article.title }} {% endblock %}
+
+{% block title %}{{ article.title}}{% endblock %}
+
+{% block body %}
+
+
+<h1> {{article.title}} </h1>
+
+<p> {{ article.catchPhrase }}</p>
+
+<button class="btn btn-primary"> PARTAGER CET ARTICLE </button>
+
+{# directive twig : petite fonctionalité twig qui permet de parser une date #}
+<div> {{ article.author }} {{ article.date|date('d-m-Y')}}</div>
+
+<div>
+    <img src="{{ article.picture }}" alt="{{ article.chapo }}" title="{{ article.chapo }}"/>
+    <p> {{ article.legendMainPicture}} </p>
+</div>
+
+{% endblock %}

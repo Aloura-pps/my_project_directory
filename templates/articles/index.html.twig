@@ -1,7 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Articles{% endblock %}
+{% block title %}Nos articles{% endblock %}
 
 {% block body %}
+
+{% for article in listArticles %}
+
+<div class="mt-3">
+    <img width = 300 px src="{{ article.picture }}" alt="{{ article.chapo }}" title="{{ article.chapo }}"/>
+    <p> {{ article.legendMainPicture}} </p>
+
+    <div>
+        <h2> {{ article.title }} </h2>
+        <p> {{ article.chapo }} <p>
+    </div>
+</div>
+
+{% endfor %}
 
 {% endblock %}

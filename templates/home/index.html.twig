@@ -1,11 +1,37 @@
 {% extends 'base.html.twig' %}
 
+{% block meta_description %}Bienvenue sur la page home du Blog  {% endblock %}
+
 {% block title %}Page d'accueil{% endblock %}
 
 {% block body %}
 
-    {# Permet de rediriger vers la page d'accueil #}
-    <a href="{{ path('app_home') }}"> Lien vers la page d'accueil </a>
+
+
+    {% for category in listCategories %}
+        
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
+
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="{{ path('show_articles_by_category', {id : category.id} )}}" class="nav-link active" aria-current="page">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="{{ path('show_articles_by_category', {id : category.id} )}}"></use></svg>
+                        {{category.name}}
+                    </a>
+                 </li>
+            </ul>
+        </div>
+        
+     
+    {% endfor %}
+
+        {# Permet de rediriger vers la page d'accueil #}
+    <a href="{{ path('app_home') }}"> Lien vers la page d'accueil </a><br>
+
+    {% for article in listArticles %}
+        <a href="{{ path('show_article_by_id', {id : article.id} )}}" > {{article.title}} </a> <br>  
+    {% endfor %}
+    <br>
 
 {% endblock %}
 
