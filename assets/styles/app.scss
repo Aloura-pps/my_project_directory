@@ -1,8 +1,52 @@
+$primary:rgb(17, 223, 79);
+
 @import "~bootstrap/scss/bootstrap";
 
-$color : rgb(255, 255, 255);
+// Common css
 
-body {
-    background-color: $color;
+ul {
+    list-style-type: none;
 }
 
+a {
+    text-decoration: none;
+}
+
+.side-bar {
+
+    position: fixed;
+    width: 350px;
+    height: 100vh;
+    // 100%
+    // px
+    // viewHeight viewWidth
+    border: 1px solid;
+}
+
+.main-content {
+    margin-left:350px;
+    margin-top: 65px;
+
+    .inner-content {
+
+        padding: 3rem;
+    }
+
+}
+
+#main-nav {
+    position: fixed;
+    width: 100vw;
+    height: 65px;
+    top: 0;
+}
+
+.article {
+
+    img {
+        width: 300px;
+        // height: 200px;
+        border: 1px solid;
+    }
+
+}

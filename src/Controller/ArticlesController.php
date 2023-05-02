@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Articles;
+use App\Entity\Category;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,8 +32,19 @@ class ArticlesController extends AbstractController
 
         $article = $entityManager->getRepository(Articles::class)->findBy(["id" => $id])[0];
 
+        // Les trois articles les plus récents liés à cette category
+        // different de l'article en cours
+        // => on va devoir coder la requête dans ArticleRepository
+
+        $relatedArticles = $entityManager->getRepository(Articles::class)->findLastTreeRelatedArticles($article->getCategory(), $id);
+
+        // dd($relatedArticles);
+
+
+
         return $this->render('articles/article.html.twig', [
             'article' => $article,
+            'relatedArticles' => $relatedArticles
 
         ]);
     }
@@ -47,8 +59,13 @@ class ArticlesController extends AbstractController
 
         $articles = $entityManager->getRepository(Articles::class)->findBy(["category" => $id]);
 
+        $category = $entityManager->getRepository(Category::class)->find($id);
+
+
+
         return $this->render('articles/index.html.twig', [
             'listArticles' => $articles,
+            'category' => $category
         ]);
     }
 }

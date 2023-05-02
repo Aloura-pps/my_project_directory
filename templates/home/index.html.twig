@@ -1,37 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_description %}Bienvenue sur la page home du Blog  {% endblock %}
-
+{% block meta_description %} Bienvenue sur notre blog ! {% endblock %}
 {% block title %}Page d'accueil{% endblock %}
 
 {% block body %}
 
 
+    <div class="side-bar p-3">
 
-    {% for category in listCategories %}
-        
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
+        <div class="logo"> </div>
+        <div class="photo"> </div>
+        <div class="list-categories"> 
 
-            <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
-                    <a href="{{ path('show_articles_by_category', {id : category.id} )}}" class="nav-link active" aria-current="page">
-                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="{{ path('show_articles_by_category', {id : category.id} )}}"></use></svg>
-                        {{category.name}}
-                    </a>
-                 </li>
+            <ul>
+                {% for category in listCategories %}
+                   <li class="my-3">
+                        <a href="{{ path('show_articles_by_category', {id : category.id}) }}"> {{category.name}} </a>
+                   </li>
+                {% endfor %}
             </ul>
-        </div>
         
-     
-    {% endfor %}
+        </div>
 
-        {# Permet de rediriger vers la page d'accueil #}
-    <a href="{{ path('app_home') }}"> Lien vers la page d'accueil </a><br>
+    </div>
 
-    {% for article in listArticles %}
-        <a href="{{ path('show_article_by_id', {id : article.id} )}}" > {{article.title}} </a> <br>  
-    {% endfor %}
-    <br>
+    <div class="main-content px-5">
+
+        <div class="inner-content">
+            <h1 class="mb-5"> Nos derniers articles </h1>
+
+                {% for article in listArticles %}
+
+                    <div class="article d-flex my-3">
+                        <a class="d-flex text-reset" href="{{ path('show_article_by_id', {id : article.id}) }}">
+                        <img src="{{ asset('build/images/' ~ article.picture) }}"/>
+                        
+                        <div class="d-flex flex-column ps-2">   
+                            <h2>{{ article.title }} - {{ article.date|date("d-m-y") }} </h2>
+                            <p>{{ article.chapo }} </p>
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+                
+                <div class="navigation">
+                    {{ knp_pagination_render(listArticles) }}
+                </div>
+        </div>
+    </div>
+
+
+    {# Permet de rediriger vers la page d'accueil #}
+    {# <a href="{{ path('app_home') }}"> Lien vers la page d'accueil </a> #}
+
+
+
+
 
 {% endblock %}
-

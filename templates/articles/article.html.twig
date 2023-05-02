@@ -6,19 +6,44 @@
 
 {% block body %}
 
+    <div class="main-content px-5">
 
-<h1> {{article.title}} </h1>
+        <h1> {{article.title}} </h1>
 
-<p> {{ article.catchPhrase }}</p>
+        <p> {{article.catchPhrase}} <P>        
 
-<button class="btn btn-primary"> PARTAGER CET ARTICLE </button>
+            <div class="article d-flex my-3">
+                <a class="d-flex text-reset" href="{{ path('show_article_by_id', {id : article.id}) }}">
+                <img src="{{ asset('build/images/' ~ article.picture) }}"/>
+                
+                <div class="d-flex flex-column ps-2">   
+                    <h3>{{ article.author }} - {{ article.date|date("d-m-y") }} </h3>
+                    <p>{{ article.chapo }} </p>
+                </div>
 
-{# directive twig : petite fonctionalité twig qui permet de parser une date #}
-<div> {{ article.author }} {{ article.date|date('d-m-Y')}}</div>
+            </div>
+    </div>
 
-<div>
-    <img src="{{ article.picture }}" alt="{{ article.chapo }}" title="{{ article.chapo }}"/>
-    <p> {{ article.legendMainPicture}} </p>
-</div>
+    <div class="col-md-10 mx-auto">
+        <h2 class="mb-5"> Nos derniers articles </h2>
+        <div class="d-flex">   
+
+            {% for relatedArticle in relatedArticles %}
+
+                <div class="article d-flex my-3">
+                    <a class="d-flex text-reset" href="{{ path('show_article_by_id', {id : relatedArticle.id}) }}">
+                    <img src="{{ asset('build/images/' ~ relatedArticle.picture) }}"/>
+                    
+                    <div class="d-flex flex-column ps-2">   
+                        <h4>{{ relatedArticle.title }} </h4>
+                        <p> {{ relatedArticle.date|date("d-m-y") }} </p>
+                        <p>{{ relatedArticle.chapo }} </p>
+                    </div>
+
+                </div>
+        
+            {% endfor %}
+        </div>
+    </div>    
 
 {% endblock %}
