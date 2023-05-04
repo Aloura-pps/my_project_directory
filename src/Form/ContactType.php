@@ -51,7 +51,7 @@ class ContactType extends AbstractType
                 ]
 
             ])
-            ->add('phone', NumberType::class, [
+            ->add('phone', TextType::class, [
                 'label' => 'Votre numéro de téléphone',
                 'attr' => array(
                     'placeholder' => 'Entrer votre numéro de téléphone'

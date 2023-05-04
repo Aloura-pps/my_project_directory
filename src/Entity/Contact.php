@@ -17,33 +17,48 @@ class Contact
     private ?int $id = null;
 
     
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(
+        message: 'Le prenom ne peut pas être vide.',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $firstName = null;
 
     
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(
+        message: 'Le nom ne peut pas être vide.',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $lastName = null;
 
     
     #[Assert\NotBlank]
     #[Assert\Email(
-        message: 'The email {{ value }} is not a valid email.',
+        message: 'L\'email {{ value }} n\'est pas valide.',
     )]
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
     
     #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2,
+        max: 255,
+        minMessage: 'Votre message doit avoir un minimum de {{ limit }} characteres',
+        maxMessage: 'Votre message doit avoir un maximum de {{ limit }} characteres',
+    )]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
+    
 
     #[ORM\Column(length: 255)]
     private ?string $object = null;
 
     
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(
+        message: 'Le numéro ne peut pas être vide.'
+        )]
+    #[Assert\Regex('^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$^',
+    message : "Veuillez renseigner un numéro de téléphone français")]
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $phone = null;
 

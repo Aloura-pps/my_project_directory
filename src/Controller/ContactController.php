@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Contact;
 use App\Form\ContactType;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\Null_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ContactController extends AbstractController
 {
@@ -16,7 +18,7 @@ class ContactController extends AbstractController
 
     // un controleur attend des requeteq et renvoie une reponse
     // le nom index que l'on choisi  signifie que c'est la fonction principale
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator): Response
     {
         // j'ai creer le formulaire à partir de l'instance de la classe contact 
         // car mon formulaire est lié à la class Contact
@@ -25,7 +27,23 @@ class ContactController extends AbstractController
         $form = $this->createForm(ContactType::class, $contact);
 
         $form->handleRequest($request);
+
+
+        // Si vous voulez afficher les erreurs ou vous voulez (sous le champ par defaut)
+
+        // if ($form->isSubmitted()) {
+
+        //     $errors = $validator->validate($contact);
+
+        //     if (count($errors) > 0) {
         
+        //         return $this->render('contact/index.html.twig', [
+        //             'contact_form' => $form,
+        //             'errors' => $errors,
+        //         ]);
+        //     }
+        // }
+
         if ($form->isSubmitted() && $form->isValid()) {
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
@@ -43,6 +61,8 @@ class ContactController extends AbstractController
 
         return $this->render('contact/index.html.twig', [
             'contact_form' => $form,
+
+
         ]);
     }
 }
