@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'app_contact')]
-    public function index(Request $request): Response
+
+    // un controleur attend des requeteq et renvoie une reponse
+    // le nom index que l'on choisi  signifie que c'est la fonction principale
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         // j'ai creer le formulaire à partir de l'instance de la classe contact 
         // car mon formulaire est lié à la class Contact
@@ -26,11 +30,16 @@ class ContactController extends AbstractController
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
             $contact = $form->getData();
+            $entityManager->persist($contact);
+            $entityManager->flush();
 
+            $this->addFlash('comfirmation', 'votre email a bien été envoyé !');
+
+        }
             // ... perform some action, such as saving the task to the database
 
-            return $this->redirectToRoute('contact_success');
-        }
+            // return $this->redirectToRoute('contact/index.html.twig');
+        
 
         return $this->render('contact/index.html.twig', [
             'contact_form' => $form,

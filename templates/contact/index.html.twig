@@ -5,9 +5,17 @@
 {% form_theme contact_form 'bootstrap_5_layout.html.twig' %}
 
 {% block body %}
-
     <div class='main-content p-5'>
-        {{ form(contact_form) }}
+        {# afficher les messages flashs #}
+
+        {% for message in app.flashes('comfirmation') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        
+            {{ form(contact_form) }}
     </div>
 
 {% endblock %}
