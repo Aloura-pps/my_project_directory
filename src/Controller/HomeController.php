@@ -26,15 +26,17 @@ class HomeController extends AbstractController
         // j'ai récupéré le repository de la classe Articles
         // et j'ai appelé la méthode findAll()
         $articles = $entityManager->getRepository(Articles::class)->findAll();
-        $categories = $entityManager->getRepository(Category::class)->findAll();
+
+        // $categories = $entityManager->getRepository(Category::class)->findAll();
+        $categories = $entityManager->getRepository(Category::class)->findCategoriesWithArticles();
 
         // j'écrase ma variable $articles
         // en lui affectant ma pagination
         $articles = $paginator->paginate(
-            $articles, /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            4 /*limit per page*/
-        );
+                    $articles, /* query NOT result */
+                    $request->query->getInt('page', 1), /*page number*/
+                    4 /*limit per page*/
+                    );
 
 
         // elle retourne l'appel à la méthode render()

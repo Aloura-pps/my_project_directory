@@ -39,21 +39,41 @@ class CategoryRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Category[] Returns an array of Category objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+    * @return Category[] Returns an array of Category objects
+    */
+    public function findCategoriesWithArticles(): array
+    {
+        
+    // REQUETE SQL à coder:
+    // SELECT * FROM category c
+    // WHERE c.id IN (SELECT DISTINCT(a.category_id) from articles a);
 
+        $entityManager = $this->getEntityManager();
+        
+
+        $query = $entityManager->createQuery(
+            "SELECT c FROM App\Entity\Category c
+             WHERE c.id IN (SELECT DISTINCT(a.category) from App\Entity\Articles a)"
+        );
+
+        return $query->execute();
+
+        // // On récupère le gestionnaire d'entités
+        // $entityManager = $this->getDoctrine()->getManager();
+
+        // // On crée une requête qui sélectionne toutes les catégories ayant au moins un article associé
+        // $query = $entityManager->createQueryBuilder()
+        //     ->select('c')
+        //     ->from('App\Entity\Category', 'c')
+        //     ->where('c.id IN (SELECT DISTINCT a.category FROM App\Entity\Article a)')
+        //     ->getQuery();
+
+        // // On exécute la requête
+        // $categories = $query->getResult();
+    }
+
+    
 //    public function findOneBySomeField($value): ?Category
 //    {
 //        return $this->createQueryBuilder('c')

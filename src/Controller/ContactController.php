@@ -51,7 +51,7 @@ class ContactController extends AbstractController
             $entityManager->persist($contact);
             $entityManager->flush();
 
-            $this->addFlash('comfirmation', 'votre email a bien été envoyé !');
+            $this->addFlash('confirmation', 'votre email a bien été envoyé !');
 
         }
             // ... perform some action, such as saving the task to the database

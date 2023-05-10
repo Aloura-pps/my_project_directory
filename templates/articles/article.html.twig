@@ -1,49 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_description %}Retrouver notre article sur le sujet suivant: {{ article.title }} {% endblock %}
-
-{% block title %}{{ article.title}}{% endblock %}
+{% block meta_description %} {{ article.chapo }} {% endblock %}
+{% block title %}{{ article.title }}{% endblock %}
 
 {% block body %}
 
-    <div class="main-content px-5">
+    <div class="mt-5 pt-5 px-5 d-flex flex-column align-items-center">
 
-        <h1> {{article.title}} </h1>
+        <h1 class="mb-3"> {{ article.title }} </h1>
 
-        <p> {{article.catchPhrase}} <P>        
+        <p class="mb-3"> {{ article.catchPhrase }} </p>
+        
+        <button class="btn btn-primary mb-3"> PARTAGER CET ARTICLE </button>
 
-            <div class="article d-flex my-3">
-                <a class="d-flex text-reset" href="{{ path('show_article_by_id', {id : article.id}) }}">
-                <img src="{{ asset('build/images/' ~ article.picture) }}"/>
-                
-                <div class="d-flex flex-column ps-2">   
-                    <h3>{{ article.author }} - {{ article.date|date("d-m-y") }} </h3>
-                    <p>{{ article.chapo }} </p>
-                </div>
+        {# directive twig : petite fonctionalité twig qui permet de parser une date #}
+        <div class="mb-3"> {{ article.author }} {{ article.date|date('d-m-Y') }} </div>
 
-            </div>
+        <div>
+            <img src="{{ asset('images/articles/' ~ article.picture ) }}" alt="{{ article.chapo }}" title="{{ article.chapo }}" />
+            <p> {{ article.legendMainPicture }} </p>
+        </div>
+
+        <p class="mt-5"> {{article.description}} </p>
+
+        <a href="{{path('delete_article', { id : article.id} )}}" class="btn btn-danger"> SUPPRIMER </a>
+        <a href="{{path('modify_article', { id : article.id} )}}" class="btn btn-warning"> MODIFIER </a>
+
+
     </div>
 
-    <div class="col-md-10 mx-auto">
-        <h2 class="mb-5"> Nos derniers articles </h2>
-        <div class="d-flex">   
+    <div class="mt-5 mx-auto">
+        <h2> Articles similaires </h2>
 
-            {% for relatedArticle in relatedArticles %}
+        <div class="d-flex">
+            {% for relatedArticle in relatedArticles %} 
 
-                <div class="article d-flex my-3">
-                    <a class="d-flex text-reset" href="{{ path('show_article_by_id', {id : relatedArticle.id}) }}">
-                    <img src="{{ asset('build/images/' ~ relatedArticle.picture) }}"/>
-                    
-                    <div class="d-flex flex-column ps-2">   
-                        <h4>{{ relatedArticle.title }} </h4>
-                        <p> {{ relatedArticle.date|date("d-m-y") }} </p>
-                        <p>{{ relatedArticle.chapo }} </p>
-                    </div>
-
+                <div class="article d-flex my-3 mx-auto">
+                    <a class="d-flex text-decoration-none text-reset" href="{{ path('show_article_by_id', { id : relatedArticle.id }) }}">
+                        <img src="{{ asset('build/images/' ~ relatedArticle.picture ) }}" />
+                        <div class="d-flex flex-column ps-2">   
+                            <h6>{{ relatedArticle.title }} - {{ relatedArticle.date|date("d-m-Y") }} </h6>
+                            <p>{{ article.chapo }} </p>
+                        </div>
+                    </a>
                 </div>
-        
-            {% endfor %}
+
+            {% endfor %}   
         </div>
-    </div>    
+    </div>
 
 {% endblock %}
