@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
+use App\Service\MailService;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\Null_;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -16,9 +18,9 @@ class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'app_contact')]
 
-    // un controleur attend des requeteq et renvoie une reponse
+    // un controleur attend des requete et renvoie une reponse
     // le nom index que l'on choisi  signifie que c'est la fonction principale
-    public function index(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator, MailService $mailService): Response
     {
         // j'ai creer le formulaire à partir de l'instance de la classe contact 
         // car mon formulaire est lié à la class Contact
@@ -51,6 +53,22 @@ class ContactController extends AbstractController
             $entityManager->persist($contact);
             $entityManager->flush();
 
+            // gerer l'envoie de mail
+
+            $mailService->sendMail(
+                [
+                    'firstName' => $contact->getFirstName(),
+                    'name' => $contact->getLastName(),
+                    'message' => $contact->getMessage()
+                ],
+                $contact->getEmail(),
+                'Message de contact',
+                'emails/signup.html.twig'
+            );
+
+            $contact = new Contact();
+            $form = $this->createForm(ContactType::class, $contact);
+
             $this->addFlash('confirmation', 'votre email a bien été envoyé !');
 
         }
@@ -65,4 +83,6 @@ class ContactController extends AbstractController
 
         ]);
     }
+
+
 }

@@ -1,11 +1,24 @@
 <ul class="nav justify-content-end bg-primary align-items-center px-5" id="main-nav">
-    <li class="nav-item">
-        <a class="nav-link active text-light" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-light" href="{{path('app_whoweare')}}">Qui sommes-nous?</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-light" href="{{path('app_contact')}}">Contact</a>
-    </li>
+
+            <li class="nav-item">
+                <a class="nav-link active text-light" aria-current="page" href="{{ path('app_home')}}"> Accueil </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-light" href="{{ path('app_whoweare')}}">Qui sommes-nous</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-light" href="{{ path('app_contact')}}">Contacts</a>
+            </li>
+
+            {% if app.user %}
+                <li><a class="nav-link text-light" href="{{ path('app_profile') }}">Profil</a></li>
+                <li><a class="nav-link text-light" href="{{ path('app_logout') }}">Déconnexion</a></li>
+            {% else %}
+
+
+                <li><a class="nav-link text-light" href="{{ path('app_login') }}">Se connecter</a></li>
+                <li><a class="nav-link text-light" href="{{ path('app_register') }}">S'inscrire</a></li>
+            {% endif %} 
 </ul>
