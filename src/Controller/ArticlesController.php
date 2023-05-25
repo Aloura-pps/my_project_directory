@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Articles;
 use App\Entity\Category;
+use App\Entity\Comment;
 use App\Form\ArticlesType;
+use App\Form\CommentType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface;
 use Doctrine\Migrations\Configuration\EntityManager\ManagerRegistryEntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -55,7 +57,7 @@ class ArticlesController extends AbstractController
 
     // route multiple
     // je récupère un article
-    #[Route('/article/{id}', name: 'show_article_by_id', requirements: ['id' => '\d+'], methods : ['GET'])]
+    #[Route('/article/{id}', name: 'show_article_by_id', requirements: ['id' => '\d+'])]
     public function showArticle(EntityManagerInterface $entityManager, string $id, Request $request): Response
     {
 
@@ -63,7 +65,36 @@ class ArticlesController extends AbstractController
         // comment récupérer l'id (qui est param dans l'url)
         // je récupère le paramètre id via l'argument $id
 
-        $article = $entityManager->getRepository(Articles::class)->findBy([ "id" => $id ])[0];
+        $idArticle = $request->get("id");
+        $article = $entityManager->getRepository(Articles::class)->find($idArticle);
+
+        //récupérer les commentaires de cette article
+        $comments = $entityManager->getRepository(Comment::class)->findAllValidComments($idArticle);
+
+        //gestion des commentaires
+
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+            $comment->setArticle($article);
+            $comment->setDate(new \DateTime);
+            $comment->setUser($this->getUser());
+            $comment->setIsValid(false);
+
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            // réinitialiser le formulaire
+            $comment = new Comment();
+            $form = $this->createForm(CommentType::class, $comment);
+
+            $this->addFlash('secondary', 'Votre commentaire sera validé prochainement pour publication ! ');
+
+            
+        }
 
         // récupères moi en BDD
         // Les trois articles les plus récents liés à cette catégory
@@ -73,7 +104,9 @@ class ArticlesController extends AbstractController
 
         return $this->render('articles/article.html.twig', [
             'article' => $article,
-            'relatedArticles' => $relatedArticles
+            'relatedArticles' => $relatedArticles,
+            'form_comment' => $form,
+            'comments' => $comments
         ]);
     }
 
