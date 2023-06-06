@@ -19,7 +19,7 @@ class MailService {
         // gerer l'envoie de mail
 
         $email = (new TemplatedEmail())
-        ->from('contact_GP@gmail.com')
+        ->from('guillaume.perona@aloura-dev.fr')
         ->to(new Address($to))
         ->subject($subject)
 

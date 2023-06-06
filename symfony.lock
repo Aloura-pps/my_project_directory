@@ -92,7 +92,14 @@
             "branch": "main",
             "version": "1.0",
             "ref": "efb318193e48384eb5c5aadff15396ed698f8ffc"
+<<<<<<< Updated upstream
         }
+=======
+        },
+        "files": [
+            "./public/.htaccess"
+        ]
+>>>>>>> Stashed changes
     },
     "symfony/console": {
         "version": "6.2",

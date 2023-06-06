@@ -466,6 +466,7 @@
         },
         {
             "name": "doctrine/deprecations",
+<<<<<<< Updated upstream
             "version": "v1.1.1",
             "source": {
                 "type": "git",
@@ -476,6 +477,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/deprecations/zipball/612a3ee5ab0d5dd97b7cf3874a6efe24325efac3",
                 "reference": "612a3ee5ab0d5dd97b7cf3874a6efe24325efac3",
+=======
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/deprecations.git",
+                "reference": "8cffffb2218e01f3b370bf763e00e81697725259"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/deprecations/zipball/8cffffb2218e01f3b370bf763e00e81697725259",
+                "reference": "8cffffb2218e01f3b370bf763e00e81697725259",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -507,9 +520,15 @@
             "homepage": "https://www.doctrine-project.org/",
             "support": {
                 "issues": "https://github.com/doctrine/deprecations/issues",
+<<<<<<< Updated upstream
                 "source": "https://github.com/doctrine/deprecations/tree/v1.1.1"
             },
             "time": "2023-06-03T09:27:29+00:00"
+=======
+                "source": "https://github.com/doctrine/deprecations/tree/v1.1.0"
+            },
+            "time": "2023-05-29T18:55:17+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "doctrine/doctrine-bundle",
@@ -629,6 +648,7 @@
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
+<<<<<<< Updated upstream
             "version": "3.2.4",
             "source": {
                 "type": "git",
@@ -639,6 +659,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/94e6b0fe1a50901d52f59dbb9b4b0737718b2c1e",
                 "reference": "94e6b0fe1a50901d52f59dbb9b4b0737718b2c1e",
+=======
+            "version": "3.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/DoctrineMigrationsBundle.git",
+                "reference": "05490c74141ecd285ac7d38cef1047ed0abadc47"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/05490c74141ecd285ac7d38cef1047ed0abadc47",
+                "reference": "05490c74141ecd285ac7d38cef1047ed0abadc47",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -694,7 +726,11 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/DoctrineMigrationsBundle/issues",
+<<<<<<< Updated upstream
                 "source": "https://github.com/doctrine/DoctrineMigrationsBundle/tree/3.2.4"
+=======
+                "source": "https://github.com/doctrine/DoctrineMigrationsBundle/tree/3.2.3"
+>>>>>>> Stashed changes
             },
             "funding": [
                 {
@@ -710,7 +746,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< Updated upstream
             "time": "2023-06-02T08:19:26+00:00"
+=======
+            "time": "2023-05-02T13:24:05+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "doctrine/event-manager",
