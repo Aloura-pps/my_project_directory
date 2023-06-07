@@ -5,7 +5,9 @@
 {% form_theme contact_form 'bootstrap_5_layout.html.twig' %}
 
 {% block body %}
-    <div class='main-content p-5'>
+
+        <h1 class="text-center"> Contactez-nous ! </h1>
+    
 
         {# <h3>Il y a des erreurs dans le formulaire de contact</h3>
 
@@ -24,8 +26,8 @@
         {% endfor %}
 
         
-        {{ form(contact_form, {attr: {'novalidate': 'novalidate'}}) }}
+        {{ form(contact_form, {attr: {'novalidate': 'novalidate', 'class': 'row col-md-8 mx-auto mt-3'}}) }}
 
-    </div>
+    
 
 {% endblock %}
