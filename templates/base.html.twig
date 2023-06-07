@@ -17,11 +17,12 @@
     <body>
 
         {% include 'nav.html.twig' %}
+        <div class="main-content p-5">
+            {% block body %}
 
-        {% block body %}
 
 
-
-        {% endblock %}
+            {% endblock %}
+        </div>
     </body>
 </html>

@@ -1,6 +1,12 @@
 $primary:rgb(17, 213, 223);
 
+// https://getbootstrap.com/docs/5.0/customize/css-variables/
+
 @import "~bootstrap/scss/bootstrap";
+
+body {
+    background-color: #ecf0f1;
+}
 
 // Common css
 
@@ -9,11 +15,11 @@ ul {
 }
 
 a {
+    // text-decoration: none !important;
     text-decoration: none;
 }
 
 .side-bar {
-
     position: fixed;
     width: 350px;
     height: 100vh;
@@ -21,17 +27,18 @@ a {
     // px
     // viewHeight viewWidth
     border: 1px solid;
+    top: 0;
+    left: 0;
+    padding : 65px 0 0 0;
 }
 
 .main-content {
-    margin-left:350px;
     margin-top: 65px;
 
     .inner-content {
-
+        margin-left: 350px;
         padding: 3rem;
     }
-
 }
 
 #main-nav {
@@ -39,13 +46,15 @@ a {
     width: 100vw;
     height: 65px;
     top: 0;
+    -webkit-box-shadow: 0px 5px 9px -3px rgba(0,0,0,0.5); 
+    box-shadow: 0px 5px 9px -3px rgba(0,0,0,0.5);
+    z-index: 9999;
 }
 
 .article {
 
     img {
         width: 300px;
-        // height: 200px;
         border: 1px solid;
     }
 
