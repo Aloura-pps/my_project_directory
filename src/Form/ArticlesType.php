@@ -46,6 +46,7 @@ class ArticlesType extends AbstractType
             ->add('category', EntityType::class, [
                 'placeholder' => '--',
                 'class' => Category::class,
+                'required' => false
             ])
             ->add('Modifier', SubmitType::class, [
                 'attr' => ['class' => 'save btn-primary']
